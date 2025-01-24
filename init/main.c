@@ -899,16 +899,20 @@ static void __init early_numa_node_init(void)
 asmlinkage __visible __init __no_sanitize_address __noreturn __no_stack_protector
 void start_kernel(void)
 {
+	//这是一个指向命令行的指针，通常用于存储在启动时传递给内核的命令行参数。
 	char *command_line;
+	//这个指针可能指向命令行中某个标记（通常是--）后面的部分，用来区分内核参数的不同部分。
 	char *after_dashes;
-
 	set_task_stack_end_magic(&init_task);
+	// 这个函数可能是用于在对称多处理（SMP）系统中设置处理器的 ID，帮助内核识别和管理多个处理器。
 	smp_setup_processor_id();
+	//这个函数通常用于初始化调试对象，用于在早期启动阶段检测内存损坏或其他问题。
 	debug_objects_early_init();
+	// 这个函数可能用于初始化或设置内核的构建 ID（vmlinux），这个 ID 在调试和标识内核版本时很有用。
 	init_vmlinux_build_id();
-
+    //这个函数在启动的早期阶段初始化 cgroup（控制组）。cgroup 用于将进程分组，以便管理资源（例如 CPU、内存、I/O 等）。
 	cgroup_init_early();
-
+   //这个函数用于禁用本地中断，在启动初期禁用中断通常是为了确保初始化过程不受干扰。
 	local_irq_disable();
 	early_boot_irqs_disabled = true;
 
